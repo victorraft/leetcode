@@ -8,7 +8,7 @@ class Solution {
             val middleValue = nums[middle]
 
             when {
-                middleValue == target -> return middle
+                target == middleValue -> return middle
                 target > middleValue -> left = middle + 1
                 target < middleValue -> right = middle - 1
             }
