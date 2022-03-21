@@ -1,25 +1,33 @@
 class Solution {
-    // TODO improve it. this solution is better than 48%.
     fun rotate(nums: IntArray, k: Int): Unit {
         if (nums.size <= 1) {
             return
         }
 
-        val correctedK = k % nums.size
+        val optimizedK = k % nums.size
+        val breakIndex = nums.lastIndex - optimizedK
 
-        val startArray = nums.sliceArray(0..nums.size - 1 - correctedK)
-        val endArray = nums.sliceArray((nums.size - correctedK)..nums.size - 1)
-        val resultArray = endArray + startArray
+        reverse(nums, 0, breakIndex)
+        reverse(nums, breakIndex + 1, nums.lastIndex)
+        reverse(nums, 0, nums.lastIndex)
+    }
 
-        for (i in nums.indices) {
-            nums[i] = resultArray[i]
+    private fun reverse(nums: IntArray, from: Int, to: Int) {
+        var start = from
+        var end = to
+
+        while (start < end) {
+            val temp = nums[start]
+            nums[start] = nums[end]
+            nums[end] = temp
+            start++
+            end--
         }
     }
 }
 
 fun test(nums: IntArray, k: Int, expectedArray: IntArray) {
     Solution().rotate(nums, k)
-//    println(nums.joinToString())
     println(nums.contentEquals(expectedArray))
 }
 
