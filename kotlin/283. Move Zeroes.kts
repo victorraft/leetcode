@@ -1,11 +1,25 @@
 class Solution {
-    // TODO pretty bad solution. Improve it using two pointers.
+    fun moveZeroesEasy(nums: IntArray): Unit {
+        val nonZeroNums = nums.filter { it != 0 }
+        val nonZeroNumsSize = nonZeroNums.size
+
+        for (i in 0..nums.lastIndex) {
+            nums[i] = if (i < nonZeroNumsSize) nonZeroNums[i] else 0
+        }
+    }
+
     fun moveZeroes(nums: IntArray): Unit {
-        for (i in 0..nums.lastIndex - 1) {
-            for (j in 0..nums.lastIndex - 1) {
-                if (nums[j] == 0) {
-                    swap(nums, j, j + 1)
+        var start = 0
+        var end = nums.lastIndex
+
+        while (start < end) {
+            if (nums[start] == 0) {
+                for (i in start..end - 1) {
+                    swap(nums, i, i + 1)
                 }
+                end--
+            } else {
+                start++
             }
         }
     }
