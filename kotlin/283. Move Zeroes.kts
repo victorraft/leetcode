@@ -8,32 +8,38 @@ class Solution {
         }
     }
 
-    fun moveZeroes(nums: IntArray): Unit {
-        var start = 0
-        var end = nums.lastIndex
+    // Push the non-zero elements to the front of the array, and fill the back with zeroes.
+    fun moveZeroesPushingNonZeroesToFront(nums: IntArray): Unit {
+        var lastNonZeroIndex = 0
 
-        while (start < end) {
-            if (nums[start] == 0) {
-                for (i in start..end - 1) {
-                    swap(nums, i, i + 1)
-                }
-                end--
-            } else {
-                start++
+        for (i in 0..nums.lastIndex) {
+            if (nums[i] != 0) {
+                nums[lastNonZeroIndex] = nums[i]
+                lastNonZeroIndex++
             }
+        }
+
+        for (i in lastNonZeroIndex..nums.lastIndex) {
+            nums[i] = 0
         }
     }
 
-    private fun swap(nums: IntArray, i: Int, j: Int) {
-        val temp = nums[i]
-        nums[i] = nums[j]
-        nums[j] = temp
+    fun moveZeroes(nums: IntArray): Unit {
+        var lastNonZeroIndex = 0
+
+        for (i in 0..nums.lastIndex) {
+            if (nums[i] != 0) {
+                val temp = nums[i]
+                nums[i] = 0
+                nums[lastNonZeroIndex] = temp
+                lastNonZeroIndex++
+            }
+        }
     }
 }
 
 fun test(nums: IntArray, expectedArray: IntArray) {
     Solution().moveZeroes(nums)
-    println(nums.joinToString())
     println(nums.contentEquals(expectedArray))
 }
 
