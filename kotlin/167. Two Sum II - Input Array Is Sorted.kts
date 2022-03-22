@@ -1,4 +1,5 @@
 class Solution {
+    // TODO nice solution, but can be improved with binary search.
     fun twoSum(numbers: IntArray, target: Int): IntArray {
         var start = 0
         var end = numbers.lastIndex
